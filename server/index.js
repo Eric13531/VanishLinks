@@ -35,7 +35,7 @@ function randomstring(len) { // Generate a random string of len characters
     return res;
 }
 
-app.post("/api/uploaded", function(req, res) {
+app.post("/uploaded", function(req, res) {
     var url = req.body.url.toString();
 	var new_url = randomstring(5);
     db.serialize(() => {
