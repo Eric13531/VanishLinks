@@ -36,7 +36,6 @@ function randomstring(len) {
   return res;
 }
 
-<<<<<<< HEAD
 // Eric
 app.post("/upload", (req, res) => {
   res.send(req.body.url.toString());
@@ -44,18 +43,25 @@ app.post("/upload", (req, res) => {
 });
 // End Eric
 
-app.post("/uploaded", function(req, res) {
-    var url = req.body.url.toString();
-	var new_url = randomstring(5);
-    db.serialize(() => {
-        db.run('INSERT INTO links(id,url) VALUES(?,?)', [new_url, url], function(err) {
-            if (err) {
-                return console.log(err.message);
-            }
-            console.log(new_url, req.body.url);
-            res.render(process.cwd() + "/public/success.html", { new_url: new_url, base_url: BASE_URL }); // success.html will display the results of our post
-        });
-    });
+app.post("/uploaded", function (req, res) {
+  var url = req.body.url.toString();
+  var new_url = randomstring(5);
+  db.serialize(() => {
+    db.run(
+      "INSERT INTO links(id,url) VALUES(?,?)",
+      [new_url, url],
+      function (err) {
+        if (err) {
+          return console.log(err.message);
+        }
+        console.log(new_url, req.body.url);
+        res.render(process.cwd() + "/public/success.html", {
+          new_url: new_url,
+          base_url: BASE_URL,
+        }); // success.html will display the results of our post
+      }
+    );
+  });
 });
 
 app.get("/links/:link", (req, res) => {
